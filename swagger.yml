@@ -100,6 +100,40 @@ paths:
         '404':
           description: Hotel not found
 
+  /hotels/search:
+    get:
+      tags:
+        - hotel
+      summary: Get all hotels
+      operationId: searchHotels
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+            default: taj
+        - name: city
+          in: query
+          schema:
+            type: string
+            default: delhi
+        - name: country
+          in: query
+          schema:
+            type: string
+            default: india
+      responses:
+        '200':
+          description: hotels fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hotels'
+        '405':
+          description: method not allowed
+
 components:
   schemas:
     Hotels:
@@ -131,13 +165,13 @@ components:
           example: taj@gmail.com
         address:
           type: string
-          example: Delhi
+          example: Main Road, New Delhi
         pincode:
           type: integer
           example: 123456
         city:
           type: string
-          example: Mumbai
+          example: Delhi
         country:
           type: string
           example: India
@@ -176,13 +210,13 @@ components:
                   example: taj@gmail.com
                 address:
                   type: string
-                  example: Delhi
+                  example: Main Road, New Delhi
                 pincode:
                   type: integer
                   example: 123456
                 city:
                   type: string
-                  example: Mumbai
+                  example: Delhi
                 country:
                   type: string
                   example: India
