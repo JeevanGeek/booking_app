@@ -81,8 +81,6 @@ paths:
       responses:
         '405':
           description: Invalid input
-      requestBody:
-        $ref: '#/components/requestBodies/Hotel'
     delete:
       tags:
         - hotel
