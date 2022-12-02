@@ -92,8 +92,7 @@ paths:
           description: Hotel id to delete
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
       responses:
         '400':
           description: Invalid ID supplied
