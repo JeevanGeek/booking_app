@@ -1,0 +1,22 @@
+name: Swagger
+
+on:
+  push:
+    branches:
+      - swagger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate Swagger UI
+        uses: Legion2/swagger-ui-action@v1
+        with:
+          output: swagger
+          spec-file: swagger.yml
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          publish_dir: swagger

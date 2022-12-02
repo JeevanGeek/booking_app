@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  description: This is a sample booking server
+  version: "1.0.0"
+  title: Swagger Hotelstore
+servers:
+  - description: Booking APIs
+    url: https://virtserver.swaggerhub.com/JEEVANC/booking/1.0.0
+tags:
+  - name: hotel
+    description: Everything about your hotels
+paths:
+  /hotels:
+    get:
+      tags:
+        - hotel
+      summary: Get all hotels
+      operationId: getHotels
+      responses:
+        '200':
+          description: hotels fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hotels'
+        '405':
+          description: method not allowed
+    post:
+      tags:
+        - hotel
+      summary: Add a new hotel to the database
+      operationId: addHotel
+      responses:
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/Hotel'
+
+  '/hotels/{hotelId}':
+    get:
+      tags:
+        - hotel
+      summary: Find hotel by ID
+      description: Returns a single hotel
+      operationId: getHotelById
+      parameters:
+        - name: hotelId
+          in: path
+          description: ID of hotel to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hotels'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Hotels'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Hotel not found
+    put:
+      tags:
+        - hotel
+      summary: Updates a hotel by ID
+      operationId: updateHotelWithForm
+      parameters:
+        - name: hotelId
+          in: path
+          description: ID of hotel that needs to be updated
+          required: true
+          schema:
+            type: string
+      responses:
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/Hotel'
+    delete:
+      tags:
+        - hotel
+      summary: Deletes a hotel
+      operationId: deleteHotel
+      parameters:
+        - name: hotelId
+          in: path
+          description: Hotel id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Hotel not found
+
+components:
+  schemas:
+    Hotels:
+      type: object
+      required:
+        - id
+        - name
+        - phone
+        - email
+        - address
+        - pincode
+        - city
+        - country
+        - rooms
+        - rating
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: Taj Hotel
+        phone:
+          type: integer
+          example: 9898989898
+        email:
+          type: string
+          example: taj@gmail.com
+        address:
+          type: string
+          example: Delhi
+        pincode:
+          type: integer
+          example: 123456
+        city:
+          type: string
+          example: Mumbai
+        country:
+          type: string
+          example: India
+        rooms:
+          type: integer
+          example: 2000
+        rating:
+          type: integer
+          example: 5
+
+  requestBodies:
+    Hotel:
+      content:
+        application/json:
+          schema:
+              type: object
+              required:
+                - name
+                - phone
+                - email
+                - address
+                - pincode
+                - city
+                - country
+                - rooms
+                - rating
+              properties:
+                name:
+                  type: string
+                  example: Taj Hotel
+                phone:
+                  type: integer
+                  example: 9898989898
+                email:
+                  type: string
+                  example: taj@gmail.com
+                address:
+                  type: string
+                  example: Delhi
+                pincode:
+                  type: integer
+                  example: 123456
+                city:
+                  type: string
+                  example: Mumbai
+                country:
+                  type: string
+                  example: India
+                rooms:
+                  type: integer
+                  example: 2000
+                rating:
+                  type: integer
+                  example: 5
